@@ -70,7 +70,7 @@ heatmap.selectAll("rect")
 
 // allows interactivity with points
 var brush = d3.brush()
-    .extent([[140, 100], [1850, 900]])
+    .extent([[140, 100], [1950, 1000]])
     .on("start brush end", brushed);
 d3.select("#brush").call(brush);
 
