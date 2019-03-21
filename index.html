@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<title>Latent Space Visualization</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="" >Latent Space Visualization</a>
+    </div>
+  </nav>
+
+
+<!--div style="text-align:center;" class="container"-->
+<svg width="2500" height="1000">
+    <g id="patches"></g>
+    <g id="masks"></g>
+    <g id="preds"></g>
+    <g id="heatmap"></g>
+    <g id="points"></g>
+    <g id="brush"></g>
+    <g id="svg-quant"></g>
+</svg>
+<!--/div-->
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+<script src="d3-legend.min.js"></script>
+<script src="data/points.js"></script>
+<script src="data/heatmap.js"></script>
+<script src="scatter_funs.js"></script>
+<script src="scatter.js"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!--link  href="style.css" ref="stylesheet"-->
+</body>
+
+</html>
