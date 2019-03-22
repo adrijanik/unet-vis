@@ -14,6 +14,8 @@ function update_patches(im_ids) {
       "height": 100,
       "width": 100,
       "xlink:href": (d) => d
+//      "src": (d) => d
+
     })
     .classed("patch", true);
 
@@ -32,6 +34,8 @@ function update_masks(im_ids) {
       "height": 100,
       "width": 100,
       "xlink:href": (d) => d
+//      "src": (d) => d
+
     })
     .classed("mask", true);
 
@@ -51,6 +55,8 @@ function update_preds(im_ids) {
       "height": 100,
       "width": 100,
       "xlink:href": (d) => d
+//      "src": (d) => d
+
     })
     .classed("pred", true);
 
@@ -67,9 +73,9 @@ function brushed() {
         y0 <= scales.y(d.coords[1]) && scales.y(d.coords[1]) < y1
     ).slice(0,8);
   }
-  update_patches(selected.map((d) => d.patch_path));
-  update_masks(selected.map((d) => d.mask_path));
-  update_preds(selected.map((d) => d.pred_path));
+  update_patches(selected.map((d) => d.patch_path_web));
+  update_masks(selected.map((d) => d.mask_path_web));
+  update_preds(selected.map((d) => d.pred_path_web));
 
 }
 
