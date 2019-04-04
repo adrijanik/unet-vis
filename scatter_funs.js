@@ -3,80 +3,50 @@
  */
 
 
-function update_patches(im_ids) {
-  var patch_sel = patches.selectAll(".patch")
-      .data(im_ids, (d) => d);
+function update_images(im_ids, name, plural, offset) {
+  currentWidth = parseInt(d3.select('#div_main').style('width'), 10)
+  var initial = ratio*scales.x(Math.max.apply(null, values0)) + ((currentWidth  -  (ratio *currentWidth))/3 - 115)
 
-  patch_sel.enter()
+  var sel = eval(name + plural).selectAll("." + name)
+    .data(im_ids, (d) => d)
+    .enter()
     .append("svg:image")
     .attrs({
-      "x": 1800,
+      "x": initial + offset + 30,
       "height": 100,
       "width": 100,
       "xlink:href": (d) => d
-//      "src": (d) => d
 
     })
-    .classed("patch", true);
+    .classed(name, true);
 
-  patch_sel.attr("y", (d, i) => (100 + 10) * i + 100);
-  patch_sel.exit().remove();
+    sel.attr("y", function(d, i) { return (100 + 10) * i + 100});    
+    return sel
 }
 
-function update_masks(im_ids) {
-  var mask_sel = masks.selectAll(".mask")
-      .data(im_ids, (d) => d);
-
-  mask_sel.enter()
-    .append("svg:image")
-    .attrs({
-      "x": 1910,
-      "height": 100,
-      "width": 100,
-      "xlink:href": (d) => d
-//      "src": (d) => d
-
-    })
-    .classed("mask", true);
-
-  mask_sel.attr("y", (d, i) => (100 + 10) * i + 100);
-  mask_sel.exit().remove();
-}
-
-
-function update_preds(im_ids) {
-  var pred_sel = preds.selectAll(".pred")
-      .data(im_ids, (d) => d);
-
-  pred_sel.enter()
-    .append("svg:image")
-    .attrs({
-      "x": 2020,
-      "height": 100,
-      "width": 100,
-      "xlink:href": (d) => d
-//      "src": (d) => d
-
-    })
-    .classed("pred", true);
-
-  pred_sel.attr("y", (d, i) => (100 + 10) * i + 100);
-  pred_sel.exit().remove();
-}
 
 function brushed() {
   var value = [];
   if (d3.event.selection) {
+    var patch = patches.selectAll(".patch");
+    patch.remove();
+    var mask = masks.selectAll(".mask");
+    mask.remove();
+    var pred = preds.selectAll(".pred");
+    pred.remove();
+
     var [[x0, y0], [x1, y1]] = d3.event.selection;
     var selected = points_data.filter(
-      d => x0 <= scales.x(d.coords[0]) && scales.x(d.coords[0]) < x1 &&
+      d => x0 <= ratio*scales.x(d.coords[0]) && ratio*scales.x(d.coords[0]) < x1 &&
         y0 <= scales.y(d.coords[1]) && scales.y(d.coords[1]) < y1
     ).slice(0,8);
   }
-  update_patches(selected.map((d) => d.patch_path_web));
-  update_masks(selected.map((d) => d.mask_path_web));
-  update_preds(selected.map((d) => d.pred_path_web));
 
+  patch_sel = update_images(selected.map((d) => d.patch_path_web), 'patch',"es", 0);
+  mask_sel = update_images(selected.map((d) => d.mask_path_web), 'mask', "s", 110);
+  pred_sel = update_images(selected.map((d) => d.pred_path_web), 'pred', "s", 220);
+  patch_sel.exit();
+  pred_sel.exit();
+  mask_sel.exit(); 
 }
-
 
