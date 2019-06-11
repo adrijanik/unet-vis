@@ -1,13 +1,114 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.btn{
+  content: "Please take a survey!";
+  position: fixed;
+  width: 750px;
+  height: 65px;
+  background: #EE8E4A;
+  top: 186px;
+  right:  -145px;
+  text-align: center;
+  font-size: 37px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  line-height: 45px;
+  -ms-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+  z-index:10;
+}
+</style>
+
+<!--> Borrowed from https://gist.github.com/SethHamilton/2201f4ed6c3c69af7f2d <-->
+<!-- this is the take survey button -->
+<div id="take-my-survey" style="display:none;"><a onclick="PopSurvey();" class="btn">Please take a Survey!</a></div>
+<!-- this is the thank-you note -->
+<div id="thanks-boss" style="display:none;"><h3>Thanks!</h3></div>
+<!-- the outer that makes up our full screen pop-up div -->
+<div id="surveyOuter" style="background:#d4d4d4;z-index:999;overflow:hidden;position:fixed;display:none;top:0;left:0;right:0;bottom:0;">
+<!-- a holder for our two buttons in the upper right -->
+<div style="display:block;position:fixed;right:16px;top:16px;overflow:none;">
+<div style="display:block;float:left;"><a onclick="HideSurvey(true);" class="smallbutton blue">Take Later</a></div>
+<div style="display:block;float:left;margin-left:8px;"><a onclick="HideSurvey(false);" class="smallbutton blue">Close Survey</a></div>
+</div>
+<div style="position:fixed;display:block;border-top:4px solid white;top:64px;left:0;bottom:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch;"><iframe id="monkeyframe" style="z-index:1000;width:100%;height:100%;padding:0;margin:0;display:none;position:absolute;border:0;overflow:hidden;" src="about:blank">
+</iframe></div><!-- close inner --></div> <!-- close outer -->
+
+<script>
+   // this is the script that makes it go
+   //
+   // Change these variables:
+   //
+   // make up an ID for your survey, it's used to cookie 
+   // the site so we don't ask for the same survey twice.
+   // note: no spaces, just text and numbers and dashes are good.
+   var thisSurveyID = "content-questionaire"; 
+   var SurveyMonkeyURL = "https://www.surveymonkey.com/r/QZP2GMB";
+   var outerDiv = document.getElementById( "surveyOuter" );
+   var monkeyFrame = document.getElementById( "monkeyframe" );
+
+   function PopSurvey() {
+      outerDiv.style.display = "block";      
+      // turn off the scroll bar on the blog page (double scrolls are horrible)
+      document.body.style.overflow = "hidden"; 
+      window.scrollTo(0,0);
+      monkeyFrame.src = SurveyMonkeyURL;
+      
+      monkeyFrame.onload= function () {
+         monkeyFrame.style.display = "block";
+      }       
+   };
+
+   function HideSurvey( doLater ) {
+      outerDiv.style.display = "none";      
+      // turn off the scroll bar back on!
+      document.body.style.overflow = "auto";
+      
+      if (doLater) {
+         // hide "thanks" and display "take survey" button
+         document.getElementById( "take-my-survey" ).style.display = "block";             
+         document.getElementById( "thanks-boss" ).style.display = "none";
+      } else {
+         // hide "take survey" button and show "thanks"!
+         document.getElementById( "take-my-survey" ).style.display = "none";
+         document.getElementById( "thanks-boss" ).style.display = "none";
+         // set cookie 
+         CookieThisSurvey();
+      }
+  
+   };
+
+   function CookieThisSurvey() {
+
+      document.cookie = "did-survey-" + thisSurveyID + "=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+
+   };
+
+   var cookie = document.cookie || "";
+
+   // do we have a cookie with this ID?
+   if (cookie.indexOf( "did-survey-" + thisSurveyID ) != -1) {
+      document.getElementById( "thanks-boss" ).style.display = "none";
+   } else { // we don't have this cookie, so show the "Take Survey" button
+      document.getElementById( "take-my-survey" ).style.display = "block";
+   }
+
+</script>
 
 <title>Latent Space Visualization</title>
 </head>
 <body>
+<div>
+</div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="" >Latent Space Visualization</a>
@@ -15,22 +116,9 @@
   </nav>
 
 
-<div id="div_main" class="container-fluid">
-  <h1 style="color:red;">Please leave a feedback &#8595;</h1>
-  </div>
-<script>(function(t,e,s,n){var o,a,c;t.SMCX=t.SMCX||[],e.getElementById(n)||(o=e.getElementsByTagName(s),a=o[o.length-1],c=e.createElement(s),c.type="text/javascript",c.async=!0,c.id=n,c.src=["https:"===location.protocol?"https://":"http://","widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgdyryIfLXa4gxPwzc46dmPjPWomRigeIxKX9M542ceH12.js"].join(""),a.parentNode.insertBefore(c,a))})(window,document,"script","smcx-sdk");</script>
-  
-  
-<script> 
+<div id="div_main" class="container-fluid"></div>
 
-var exitmessage = 'Please dont go!'; //custome message
-DisplayExit = function() {
-    return exitmessage;
-};
-window.onbeforeunload = DisplayExit;
-
-  </script>  
-<script src="https://d3js.org/d3.v5.min.js"></script>
+ <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
 <script src="d3-legend.min.js"></script>
 <script src="data/points.js"></script>
