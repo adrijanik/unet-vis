@@ -34,13 +34,16 @@
 <!-- this is the thank-you note -->
 <div id="thanks-boss" style="display:none;"><h3>Thanks!</h3></div>
 <!-- the outer that makes up our full screen pop-up div -->
-<div id="surveyOuter" style="background:#d4d4d4;z-index:999;overflow:hidden;position:fixed;display:none;top:0;left:0;right:0;bottom:0;">
+<div id="surveyOuter" style="background:#00bf6f;z-index:999;overflow:hidden;position:fixed;display:none;top:0;left:0;right:0;bottom:0;">
 <!-- a holder for our two buttons in the upper right -->
 <div style="display:block;position:fixed;right:16px;top:16px;overflow:none;">
 <div style="display:block;float:left;"><a onclick="HideSurvey(true);" class="smallbutton blue">Take Later</a></div>
 <div style="display:block;float:left;margin-left:8px;"><a onclick="HideSurvey(false);" class="smallbutton blue">Close Survey</a></div>
 </div>
-<div style="position:fixed;display:block;border-top:4px solid white;top:64px;left:0;bottom:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch;"><iframe id="monkeyframe" style="z-index:1000;width:100%;height:100%;padding:0;margin:0;display:none;position:absolute;border:0;overflow:hidden;" src="about:blank">
+<br>
+<center><h4>Please answer this 5 questions for my thesis on interpretability</h4><h4>Thank you much!</h4></center>
+<br>
+<div style="position:fixed;display:block;border-top:4px solid white;top:104px;left:0;bottom:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch;"><iframe id="monkeyframe" style="z-index:1000;width:100%;height:100%;padding:0;margin:0;display:none;position:absolute;border:0;overflow:hidden;" src="about:blank">
 </iframe></div><!-- close inner --></div> <!-- close outer -->
 
 <script>
